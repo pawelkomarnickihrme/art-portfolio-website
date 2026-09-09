@@ -35,7 +35,8 @@ export function ArtworkFigure({ art, index }: { art: Artwork; index: number }) {
               alt={art.alt}
               fill
               sizes="(max-width: 767px) 90vw, (max-width: 1279px) 400px, 560px"
-              className="object-cover"
+              priority={index === 0}
+              className="object-contain"
             />
           </div>
         </ZoomTrigger>

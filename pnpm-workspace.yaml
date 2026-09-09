@@ -1,6 +1,15 @@
+allowBuilds:
+  esbuild: true
+
 minimumReleaseAgeExclude:
   - '@next/*'
   - next
-
-onlyBuiltDependencies:
-  - esbuild
+  # ponytail: fresh transitive deps tripping the release-age policy; drop once they age past the cutoff
+  - '@rolldown/plugin-babel'
+  - '@sanity/ui'
+  - '@tanstack/react-virtual'
+  - '@tanstack/virtual-core'
+  - bidi-js
+  - skills
+  - tldts
+  - tldts-core

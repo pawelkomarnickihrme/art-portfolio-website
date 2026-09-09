@@ -1,12 +1,69 @@
+import type { Metadata } from 'next'
 import { Gallery } from '@/components/gallery'
 import { WallToggle } from '@/components/wall-toggle'
-import { getSiteSettings } from '@/lib/content'
+import { getArtworks, getSiteSettings } from '@/lib/content'
+import { siteUrl } from '@/lib/site'
+
+/** Search results cut around 160 characters; end on a whole word. */
+function summarise(bio: string[]) {
+  const text = bio.join(' ')
+  if (text.length <= 160) return text
+  return `${text.slice(0, 157).replace(/\s+\S*$/, '')}…`
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [{ siteTitle, bio }, artworks] = await Promise.all([getSiteSettings(), getArtworks()])
+  const description = summarise(bio)
+  const cover = artworks[0]
+
+  return {
+    title: `${siteTitle} — paintings`,
+    description,
+    openGraph: {
+      title: `${siteTitle} — paintings`,
+      description,
+      siteName: siteTitle,
+        // cover.src, not cover.full: the lightbox source runs to 2600px, well
+      // past what a link preview will ever show.
+      images: cover ? [{ url: cover.src, alt: cover.alt || cover.title }] : undefined,
+    },
+  }
+}
 
 export default async function Page() {
-  const { siteTitle, bio, footerNote } = await getSiteSettings()
+  const [{ siteTitle, bio, footerNote }, artworks] = await Promise.all([
+    getSiteSettings(),
+    getArtworks(),
+  ])
+
+  // Tells search engines this is an artist and what hangs here, which the
+  // markup alone cannot say — sizes and media are prose to a crawler.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VisualArtist',
+    name: siteTitle,
+    url: siteUrl,
+    description: summarise(bio),
+    makesOffer: artworks.map((art) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'VisualArtwork',
+        name: art.title,
+        image: art.full ?? art.src,
+        artform: 'Painting',
+        width: { '@type': 'QuantitativeValue', value: art.wcm, unitCode: 'CMT' },
+        height: { '@type': 'QuantitativeValue', value: art.hcm, unitCode: 'CMT' },
+        creator: { '@type': 'Person', name: siteTitle },
+      },
+    })),
+  }
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="mx-auto w-full max-w-[1320px] px-6 pt-20 md:px-12 md:pt-28">
         <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
           <h1 className="wall-text">{siteTitle}</h1>
@@ -29,7 +86,7 @@ export default async function Page() {
         </div>
       </header>
 
-      <Gallery />
+      <Gallery artworks={artworks} />
 
       <footer className="mx-auto w-full max-w-[1320px] px-6 md:px-12">
         <div className="border-t border-[var(--hairline)] pb-24 pt-16 md:pb-32 md:pt-20">

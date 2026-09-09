@@ -379,8 +379,8 @@ function Stage({
             width={1000}
             height={Math.round(1000 / (art.ratio ?? art.wcm / art.hcm))}
             draggable={false}
-            /* object-cover, like the wall: the lightbox shows the same crop, only larger. */
-            className={`pointer-events-auto max-h-full max-w-full select-none object-cover ring-1 ring-inset ring-[var(--canvas-edge)] ${
+            /* object-contain, like the wall: the whole photograph, never a crop. */
+            className={`pointer-events-auto max-h-full max-w-full select-none object-contain ring-1 ring-inset ring-[var(--canvas-edge)] ${
               panning ? '' : 'lb-settle'
             }`}
             style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.s})` }}

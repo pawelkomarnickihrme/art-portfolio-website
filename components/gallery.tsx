@@ -1,10 +1,8 @@
-import { getArtworks } from '@/lib/content'
+import type { Artwork } from '@/lib/artworks'
 import { ArtworkFigure } from './artwork-figure'
 import { Lightbox } from './lightbox'
 
-export async function Gallery() {
-  const artworks = await getArtworks()
-
+export function Gallery({ artworks }: { artworks: Artwork[] }) {
   return (
     <section
       aria-label="Works"
