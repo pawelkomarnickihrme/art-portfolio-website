@@ -44,10 +44,10 @@ export const defaultSiteSettings: SiteSettings = {
  * globals.css. Layout reads --ppc directly; this copy exists so we can ask
  * Sanity's CDN for an image no larger than the page will ever paint.
  */
-export const PX_PER_CM = 11
+export const PX_PER_CM = 13
 
-/** Widest a work ever gets: a 50cm piece in the 1240px, two-column hang. */
-export const MAX_COLUMN_PX = 580
+/** Widest a work ever gets: a 50cm piece in the 1600px, two-column hang. */
+export const MAX_COLUMN_PX = 700
 
 /**
  * Widest the lightbox ever asks for. Well past any screen, because zooming in

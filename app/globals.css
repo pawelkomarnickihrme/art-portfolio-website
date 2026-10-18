@@ -83,13 +83,13 @@
 
 @media (min-width: 1280px) {
   :root {
-    --ppc: 10px;
+    --ppc: 11px;
   }
 }
 
 @media (min-width: 1536px) {
   :root {
-    --ppc: 11px;
+    --ppc: 13px;
   }
 }
 

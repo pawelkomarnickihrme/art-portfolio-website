@@ -1,0 +1,25 @@
+.page { min-height: 100svh; background: var(--ground); color: var(--ink); }
+.skip { position: fixed; top: 12px; left: 20px; z-index: 70; padding: 10px 16px; background: var(--ink); color: var(--ground); transform: translateY(-160%); font-size: 13px; }
+.skip:focus { transform: translateY(0); }
+.header { position: absolute; inset: 0 0 auto; z-index: 20; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 72px; padding: 0 28px; }
+.brand { font-size: 23px; font-weight: 600; line-height: 1; letter-spacing: -.075em; font-variation-settings: 'wdth' 115; }
+.brand a { display: block; padding: 10px; }
+.about { justify-self: start; }
+.about summary { display: grid; place-items: center; width: 40px; height: 40px; cursor: pointer; list-style: none; color: var(--ink-secondary); transition: color 150ms; }
+.about summary::-webkit-details-marker { display: none; }
+.about summary:hover, .about[open] summary { color: var(--ink); }
+.about summary svg { width: 18px; height: 18px; }
+.about[open] summary { position: relative; z-index: 2; }
+.panel { position: absolute; top: 72px; left: 28px; width: min(420px, calc(100vw - 56px)); padding: 32px; background: var(--ground); border: 1px solid var(--hairline); box-shadow: 0 24px 80px #0003; }
+.eyebrow { color: var(--ink-secondary); font-family: monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.panel h2 { margin: 25px 0; font-size: 32px; line-height: 1; letter-spacing: -.05em; }
+.bio { display: grid; gap: 16px; font-size: 14px; line-height: 1.65; }
+.note { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--hairline); font-size: 12px; line-height: 1.6; color: var(--ink-secondary); }
+.controls { display: flex; justify-content: flex-end; }
+.controls button { display: grid; place-items: center; width: 40px; height: 40px; cursor: pointer; }
+.controls button > span:last-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; max-width: 1600px; margin: 0 auto; padding: 24px 40px 32px; color: var(--ink-secondary); font-family: monospace; font-size: 10px; letter-spacing: .035em; }
+.footer a { padding: 8px 0; transition: color 150ms; }
+.footer a:hover { color: var(--ink); }
+@media (max-width: 639px) { .header { height: 64px; padding: 0 12px; } .brand { font-size: 21px; } .panel { top: 64px; left: 20px; width: calc(100vw - 40px); padding: 24px; } .footer { align-items: flex-start; padding: 20px; font-size: 9px; } }
+@media (prefers-reduced-motion: reduce) { .about summary, .footer a { transition: none; } }

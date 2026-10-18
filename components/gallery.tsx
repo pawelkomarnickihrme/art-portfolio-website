@@ -1,17 +1,20 @@
 import type { Artwork } from '@/lib/artworks'
 import { ArtworkFigure } from './artwork-figure'
 import { Lightbox } from './lightbox'
+import styles from './catalog.module.css'
 
 export function Gallery({ artworks }: { artworks: Artwork[] }) {
   return (
     <section
       aria-label="Works"
-      className="mx-auto mt-24 w-full max-w-[1320px] columns-1 gap-x-12 px-6 md:mt-32 md:px-12 lg:columns-2 xl:gap-x-20"
+      id="works"
+      tabIndex={-1}
+      className={styles.gallery}
     >
       <Lightbox artworks={artworks}>
-        {artworks.map((art, i) => (
-          <ArtworkFigure key={art.src} art={art} index={i} />
-        ))}
+        {artworks.length ? artworks.map((art, i) => (
+          <ArtworkFigure key={`${art.src}-${i}`} art={art} index={i} />
+        )) : <p className={styles.empty}>New works are on their way.</p>}
       </Lightbox>
     </section>
   )

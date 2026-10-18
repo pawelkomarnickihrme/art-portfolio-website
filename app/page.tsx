@@ -3,6 +3,7 @@ import { Gallery } from '@/components/gallery'
 import { WallToggle } from '@/components/wall-toggle'
 import { getArtworks, getSiteSettings } from '@/lib/content'
 import { siteUrl } from '@/lib/site'
+import styles from './page.module.css'
 
 /** Search results cut around 160 characters; end on a whole word. */
 function summarise(bio: string[]) {
@@ -59,40 +60,39 @@ export default async function Page() {
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="top" className={styles.page}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
-      <header className="mx-auto w-full max-w-[1320px] px-6 pt-20 md:px-12 md:pt-28">
-        <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-6">
-          <h1 className="wall-text">{siteTitle}</h1>
-          <div className="shrink-0 pt-2">
-            <WallToggle />
+      <a href="#works" className={styles.skip}>Skip to works</a>
+      <header className={styles.header}>
+        <details className={styles.about}>
+          <summary aria-label="About the artist" title="About the artist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden="true">
+              <path d="M5 3.5h12.5v16H5a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2Z" />
+              <path d="M6 3.5v13M3 17.5a2 2 0 0 1 2-2h12.5M8 20.5h12V5.5" />
+            </svg>
+          </summary>
+          <div className={styles.panel}>
+            <p className={styles.eyebrow}>Independent artist · Selected paintings</p>
+            <h2>{siteTitle}</h2>
+            <div className={styles.bio}>
+              {bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+            <p className={styles.note}>{footerNote}</p>
           </div>
-        </div>
-
-        <div className="mt-12 max-w-[58ch] space-y-5 text-[1.0625rem] leading-[1.55]">
-          {bio.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-
-        <div className="mt-14 flex items-center gap-5">
-          <span className="scale-bar" aria-hidden="true" />
-          <p className="max-w-[34ch] text-[0.875rem] leading-snug text-muted-foreground">
-            Works are shown to scale. This bar is 10 centimetres.
-          </p>
-        </div>
+        </details>
+        <h1 className={styles.brand}><a href="#top" aria-label={`${siteTitle} — home`}>{siteTitle}</a></h1>
+        <div className={styles.controls}><WallToggle /></div>
       </header>
 
       <Gallery artworks={artworks} />
 
-      <footer className="mx-auto w-full max-w-[1320px] px-6 md:px-12">
-        <div className="border-t border-[var(--hairline)] pb-24 pt-16 md:pb-32 md:pt-20">
-          <p className="max-w-[52ch] text-[1.0625rem] leading-[1.55]">{footerNote}</p>
-          <p className="wall-text-closing mt-16">{siteTitle}</p>
-        </div>
+      <footer className={styles.footer}>
+        <p>{siteTitle} © {new Date().getFullYear()}<br />Original paintings. Nothing else.</p>
+        <p>{String(artworks.length).padStart(2, '0')} works in the collection</p>
+        <a href="#top">Back to top ↑</a>
       </footer>
     </main>
   )
