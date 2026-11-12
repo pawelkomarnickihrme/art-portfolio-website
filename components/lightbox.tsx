@@ -383,7 +383,12 @@ function Stage({
             className={`pointer-events-auto max-h-full max-w-full select-none object-contain ring-1 ring-inset ring-[var(--canvas-edge)] ${
               panning ? '' : 'lb-settle'
             }`}
-            style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.s})` }}
+            style={{
+              transform: `translate(${view.x}px, ${view.y}px) scale(${view.s})`,
+              // The wall's copy is already decoded, so it holds the frame
+              // until the large file arrives instead of flashing empty.
+              background: `url("${art.src}") center / contain no-repeat`,
+            }}
           />
         </div>
       </div>
