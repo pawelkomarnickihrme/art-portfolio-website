@@ -47,9 +47,12 @@
   .caption { flex-direction: column; gap: 2px; }
 }
 @media (max-width: 639px) {
-  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; padding: 110px 20px 64px; }
-  .surface { height: 49vw; }
-  .caption { margin-top: 12px; font-size: 12px; }
+  /* One work per row, each at full width: true scale makes small works tiny here.
+     Tall works stop at 75svh so one painting never runs past the screen. */
+  .gallery { grid-template-columns: minmax(0, 1fr); gap: 48px; padding: 110px 20px 64px; }
+  .surface { height: auto; }
+  .canvas { width: min(100%, calc(75svh * var(--work-ratio))); max-height: none; }
+  .caption { flex-direction: row; margin-top: 12px; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .canvas { transition: none; }

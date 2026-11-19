@@ -20,7 +20,7 @@ export function ArtworkFigure({ art, index }: { art: Artwork; index: number }) {
               src={art.src || '/placeholder.svg'}
               alt={art.alt || art.title}
               fill
-              sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, (max-width: 1599px) 22vw, 350px"
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 30vw, (max-width: 1599px) 22vw, 350px"
               priority={index < 4}
               className={styles.image}
             />
