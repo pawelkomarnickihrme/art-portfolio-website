@@ -5,6 +5,8 @@ import { getArtworks, getSiteSettings } from '@/lib/content'
 import { siteUrl } from '@/lib/site'
 import styles from './page.module.css'
 
+const EMAIL = /([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/
+
 /** Search results cut around 160 characters; end on a whole word. */
 function summarise(bio: string[]) {
   const text = bio.join(' ')
@@ -80,7 +82,12 @@ export default async function Page() {
             <div className={styles.bio}>
               {bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <p className={styles.note}>{footerNote}</p>
+            <p className={styles.note}>
+              {/* Odd parts of the split are the captured addresses. */}
+              {footerNote.split(EMAIL).map((part, i) =>
+                i % 2 ? <a key={i} href={`mailto:${part}`}>{part}</a> : part,
+              )}
+            </p>
           </div>
         </details>
         <h1 className={styles.brand}><a href="#top" aria-label={`${siteTitle} — home`}>{siteTitle}</a></h1>
