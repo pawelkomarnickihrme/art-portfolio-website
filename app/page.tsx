@@ -6,6 +6,8 @@ import { siteUrl } from '@/lib/site'
 import styles from './page.module.css'
 
 const EMAIL = /([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/
+// ponytail: hardcoded on purpose; any address typed in the Studio is replaced with this one.
+const CONTACT = 's.m.dabrowska@gmail.com'
 
 /** Search results cut around 160 characters; end on a whole word. */
 function summarise(bio: string[]) {
@@ -85,7 +87,7 @@ export default async function Page() {
             <p className={styles.note}>
               {/* Odd parts of the split are the captured addresses. */}
               {footerNote.split(EMAIL).map((part, i) =>
-                i % 2 ? <a key={i} href={`mailto:${part}`}>{part}</a> : part,
+                i % 2 ? <a key={i} href={`mailto:${CONTACT}`}>{CONTACT}</a> : part,
               )}
             </p>
           </div>
@@ -99,7 +101,7 @@ export default async function Page() {
       <footer className={styles.footer}>
         <p>{siteTitle} © {new Date().getFullYear()}<br />Original paintings. Nothing else.</p>
         <p>{String(artworks.length).padStart(2, '0')} works in the collection</p>
-        <a href="mailto:s.m.dabrowska@gmail.com">s.m.dabrowska@gmail.com</a>
+        <a href={`mailto:${CONTACT}`}>{CONTACT}</a>
         <a href="#top">Back to top ↑</a>
       </footer>
     </main>
