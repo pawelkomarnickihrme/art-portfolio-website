@@ -99,6 +99,7 @@ export default async function Page() {
       <footer className={styles.footer}>
         <p>{siteTitle} © {new Date().getFullYear()}<br />Original paintings. Nothing else.</p>
         <p>{String(artworks.length).padStart(2, '0')} works in the collection</p>
+        <a href="mailto:s.m.dabrowska@gmail.com">s.m.dabrowska@gmail.com</a>
         <a href="#top">Back to top ↑</a>
       </footer>
     </main>

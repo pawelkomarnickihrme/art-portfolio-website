@@ -36,7 +36,7 @@ export const defaultSiteSettings: SiteSettings = {
     'Abstract paintings built from vivid, saturated colour — hard-edged in some works, poured and translucent in others.',
     'Replace this with a line about your practice, your materials, or what the work is after. You can edit it in the panel at /studio.',
   ],
-  footerNote: 'Every work here is available. Write to s.m.dabrowska@gmail.com if you would like to see one in person.',
+  footerNote: 'Every work here is available. Write if you would like to see one in person.',
 }
 
 /**
