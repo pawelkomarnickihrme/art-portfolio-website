@@ -335,7 +335,7 @@ function Stage({
   const zoomed = view.s > MIN_SCALE + 0.001
   // The whole site is drawn in centimetres, so the zoom reads in them too.
   const across = Math.max(1, Math.round(art.wcm / view.s))
-  const chrome = 'text-[0.875rem] leading-none text-muted-foreground hover:text-foreground'
+  const chrome = 'text-[0.9375rem] leading-none text-muted-foreground hover:text-foreground'
 
   return createPortal(
     <div
@@ -349,8 +349,8 @@ function Stage({
     >
       <div className="flex shrink-0 items-start justify-between gap-6 px-6 py-5 md:px-10">
         <div>
-          <span className="block text-[0.9375rem] font-medium leading-snug">{art.title}</span>
-          <span className="measure mt-0.5 block text-[0.875rem] text-muted-foreground">
+          <span className="block text-[1rem] font-medium leading-snug">{art.title}</span>
+          <span className="measure mt-0.5 block text-[0.9375rem] text-muted-foreground">
             {art.wcm} × {art.hcm} cm
           </span>
         </div>
@@ -398,7 +398,7 @@ function Stage({
           <button type="button" onClick={() => go(-1)} aria-label="Previous work" className={chrome}>
             ←
           </button>
-          <span className="measure text-[0.875rem] text-muted-foreground">
+          <span className="measure text-[0.9375rem] text-muted-foreground">
             {String(index + 1).padStart(2, '0')} / {String(artworks.length).padStart(2, '0')}
           </span>
           <button type="button" onClick={() => go(1)} aria-label="Next work" className={chrome}>
@@ -407,7 +407,7 @@ function Stage({
         </div>
 
         <div className="flex items-center gap-5">
-          <span className="measure text-[0.875rem] text-muted-foreground">
+          <span className="measure text-[0.9375rem] text-muted-foreground">
             {zoomed ? `Detail · ${across} cm across` : 'Click the work to zoom'}
           </span>
           {zoomed && (

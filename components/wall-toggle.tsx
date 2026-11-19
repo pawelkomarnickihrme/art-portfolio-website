@@ -40,7 +40,7 @@ export function WallToggle() {
       type="button"
       onClick={switchWall}
       aria-label={`Show the works on a ${target} wall`}
-      className="flex items-center gap-2.5 text-[0.875rem] leading-none text-muted-foreground hover:text-foreground"
+      className="flex items-center gap-2.5 text-[0.9375rem] leading-none text-muted-foreground hover:text-foreground"
     >
       <span className="wall-swatch" aria-hidden="true" />
       {/* Before hydration the label would be a guess, so hold the space instead. */}
